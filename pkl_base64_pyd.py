@@ -137,7 +137,7 @@ else:
         else:
             print('something wrong')
 
-        id_pyd_dir = "../flaskApi/py/pkl/" + _id
+        id_pyd_dir = "../flaskAPI/py/pkl/" + _id
         if not os.path.isdir(id_pyd_dir):
             os.mkdir(id_pyd_dir)
             print("make dir for: " + _id)
