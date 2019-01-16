@@ -38,10 +38,16 @@ if platform.system() == 'Windows':
         else:
             print('something wrong')
 
-        process = subprocess.Popen('rm ' + pkl_name + '.c', shell=True, stdout=subprocess.PIPE)
+        import os
+        id_dir = "c/" + _id
+        if not os.path.isdir(id_dir):
+            os.mkdir(id_dir)
+            print("make dir for: " + _id)
+
+        process = subprocess.Popen('mv ' + pkl_name + '.c ' + id_dir, shell=True, stdout=subprocess.PIPE)
         process.wait()
         if process.returncode == 0:
-            print('delete ' + pkl_name + '.c sucess.')
+            print('move to c_id folder sucess')
         else:
             print('something wrong')
 
@@ -52,7 +58,6 @@ if platform.system() == 'Windows':
         else:
             print('something wrong')
 
-        import os
         id_dir = "pkl/" + _id
         if not os.path.isdir(id_dir):
             os.mkdir(id_dir)
