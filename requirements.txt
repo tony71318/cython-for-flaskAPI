@@ -1,0 +1,15 @@
+altgraph==0.16.1
+certifi==2018.11.29
+Cython==0.29.2
+future==0.17.1
+macholib==1.11
+numpy==1.15.4
+pandas==0.23.4
+pefile==2018.8.8
+PyInstaller==3.4
+pyminifier==2.1
+python-dateutil==2.7.5
+pytz==2018.7
+pywin32-ctypes==0.2.0
+six==1.12.0
+wincertstore==0.2
