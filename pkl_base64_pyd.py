@@ -1,9 +1,8 @@
-import base64
+import base64, platform, subprocess, os
 
 _id = '1002010002'
 pkl_name_list = ['one', 'two', 'three', 'four', 'five', 'six', 'features', 'num_previous']
 
-import platform
 if platform.system() == 'Windows':
     for pkl_name in pkl_name_list:
         with open('pkl/' + pkl_name + '.pkl', 'rb') as f:
@@ -22,7 +21,6 @@ if platform.system() == 'Windows':
                 
             f.close()
 
-        import subprocess
         process = subprocess.Popen('python setup.py ' + pkl_name + ' build_ext --inplace', shell=True, stdout=subprocess.PIPE)
         process.wait()
         if process.returncode == 0:
@@ -30,7 +28,6 @@ if platform.system() == 'Windows':
         else:
             print('something wrong')
 
-        import subprocess
         process = subprocess.Popen('rm ' + pkl_name + '.py', shell=True, stdout=subprocess.PIPE)
         process.wait()
         if process.returncode == 0:
@@ -38,7 +35,6 @@ if platform.system() == 'Windows':
         else:
             print('something wrong')
 
-        import os
         id_dir = "c/" + _id
         if not os.path.isdir(id_dir):
             os.mkdir(id_dir)
