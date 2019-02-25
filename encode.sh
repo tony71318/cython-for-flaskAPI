@@ -41,6 +41,8 @@ elif [[ $mode = "2" ]]; then #whole folder
         extension="${full_fileName##*.}"
         if [[ $fileType = "1" && $extension = "py" ]]; then
             python3 setup.py $fileName build_ext --inplace
+            rm "$fileName".c
+            mv "$fileName".*.so "$fileName".so
             echo Ouput: "$fileName".so
         elif [[ $fileType = "2" && $extension = "pkl" ]]; then
             python3 encode_pkl.py $filePath $fileName
