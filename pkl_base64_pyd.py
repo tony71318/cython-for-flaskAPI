@@ -1,7 +1,13 @@
 import base64, platform, subprocess, os
+from argparse import ArgumentParser
 
-pydFileName = 'lasso'
-targetFolderName = 'lassoModelParams/'
+parser = ArgumentParser()
+parser.add_argument("pydFileName", help="pydFileName")
+parser.add_argument("targetFolderName", help="targetFolderName")
+args = parser.parse_args()
+
+pydFileName = args.pydFileName
+targetFolderName = args.targetFolderName
 
 if platform.system() == 'Windows':
     with open(pydFileName + '.py', 'w') as f:
