@@ -3,3 +3,7 @@
 depends.exe
 /xgb*
 /web_taipower
+/lasso*
+/.vscode
+test.py
+python37.dll
