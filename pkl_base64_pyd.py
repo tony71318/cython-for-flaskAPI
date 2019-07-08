@@ -1,18 +1,17 @@
 import base64, platform, subprocess, os
 
-modelName = 'lasso'
-folderName = 'lassoModelParams/'
+pydFileName = 'lasso'
+targetFolderName = 'lassoModelParams/'
 
 if platform.system() == 'Windows':
-    with open(modelName + '.py', 'w') as f:
+    with open(pydFileName + '.py', 'w') as f:
         f.write('#cython: language_level=3\n')
         f.write('enc_model = {\n')
         
-        for fileName in os.listdir(folderName):
+        for fileName in os.listdir(targetFolderName):
             _name = fileName.split('.')[0]
-            _id = fileName.split('_')[1]
 
-            with open(folderName + fileName, 'rb') as file:
+            with open(targetFolderName + fileName, 'rb') as file:
                 byteArray = file.read()
 
             enc_byteArray = base64.b64encode(byteArray)
@@ -21,44 +20,43 @@ if platform.system() == 'Windows':
         f.write('}')
         f.close()
 
-    process = subprocess.Popen('python setup.py ' + modelName + ' build_ext --inplace', shell=True, stdout=subprocess.PIPE)
+    process = subprocess.Popen('python setup.py ' + pydFileName + ' build_ext --inplace', shell=True, stdout=subprocess.PIPE)
     process.wait()
     if process.returncode == 0:
         print('build pyd success.')
     else:
         print('something wrong')
 
-    process = subprocess.Popen('rm ' + modelName + '.py', shell=True, stdout=subprocess.PIPE)
+    process = subprocess.Popen('rm ' + pydFileName + '.py', shell=True, stdout=subprocess.PIPE)
     process.wait()
     if process.returncode == 0:
-        print('delete ' + modelName + '.py sucess.')
+        print('delete ' + pydFileName + '.py sucess.')
     else:
         print('something wrong')
 
-    process = subprocess.Popen('rm ' + modelName + '.c ', shell=True, stdout=subprocess.PIPE)
+    process = subprocess.Popen('rm ' + pydFileName + '.c ', shell=True, stdout=subprocess.PIPE)
     process.wait()
     if process.returncode == 0:
         print('remove .c sucess')
     else:
         print('something wrong')
 
-    process = subprocess.Popen('mv ' + modelName + '.cp36-win_amd64.pyd ' + modelName + '.pyd', shell=True, stdout=subprocess.PIPE)
+    process = subprocess.Popen('mv ' + pydFileName + '.cp36-win_amd64.pyd ' + pydFileName + '.pyd', shell=True, stdout=subprocess.PIPE)
     process.wait()
     if process.returncode == 0:
-        print('rename ' + modelName + '.pyd sucess.')
+        print('rename ' + pydFileName + '.pyd sucess.')
     else:
         print('something wrong')
 
 else:
-    with open(modelName + '.py', 'w') as f:
+    with open(pydFileName + '.py', 'w') as f:
         f.write('#cython: language_level=3\n')
         f.write('enc_model = {\n')
         
-        for fileName in os.listdir(folderName):
+        for fileName in os.listdir(targetFolderName):
             _name = fileName.split('.')[0]
-            _id = fileName.split('_')[1]
 
-            with open(folderName + fileName, 'rb') as file:
+            with open(targetFolderName + fileName, 'rb') as file:
                 byteArray = file.read()
 
             enc_byteArray = base64.b64encode(byteArray)
@@ -67,38 +65,38 @@ else:
         f.write('}')
         f.close()
         
-    process = subprocess.Popen('python3 setup.py ' + modelName + ' build_ext --inplace', shell=True, stdout=subprocess.PIPE)
+    process = subprocess.Popen('python3 setup.py ' + pydFileName + ' build_ext --inplace', shell=True, stdout=subprocess.PIPE)
     process.wait()
     if process.returncode == 0:
         print('build pyd success.')
     else:
         print('something wrong')
 
-    process = subprocess.Popen('rm ' + modelName + '.py', shell=True, stdout=subprocess.PIPE)
+    process = subprocess.Popen('rm ' + pydFileName + '.py', shell=True, stdout=subprocess.PIPE)
     process.wait()
     if process.returncode == 0:
-        print('delete ' + modelName + '.py sucess.')
+        print('delete ' + pydFileName + '.py sucess.')
     else:
         print('something wrong')
 
-    process = subprocess.Popen('rm ' + modelName + '.c ', shell=True, stdout=subprocess.PIPE)
+    process = subprocess.Popen('rm ' + pydFileName + '.c ', shell=True, stdout=subprocess.PIPE)
     process.wait()
     if process.returncode == 0:
         print('remove .c sucess')
     else:
         print('something wrong')
 
-    process = subprocess.Popen('mv ' + modelName + '.*.so ' + modelName + '.so', shell=True, stdout=subprocess.PIPE)
+    process = subprocess.Popen('mv ' + pydFileName + '.*.so ' + pydFileName + '.so', shell=True, stdout=subprocess.PIPE)
     process.wait()
     if process.returncode == 0:
-        print('rename ' + modelName + '.so sucess.')
+        print('rename ' + pydFileName + '.so sucess.')
     else:
         print('something wrong')
 
     ## ex. gcc -shared -o libhello.so -fPIC hello.c
-    #process = subprocess.Popen('gcc -shared -o ../flaskAPI/py/pkl/'+ _id + '/' + modelName + '.so -fPIC ./c/' + _id + '/' + modelName + '.c', shell=True, stdout=subprocess.PIPE)
+    #process = subprocess.Popen('gcc -shared -o ../flaskAPI/py/pkl/'+ _id + '/' + pydFileName + '.so -fPIC ./c/' + _id + '/' + pydFileName + '.c', shell=True, stdout=subprocess.PIPE)
     #process.wait()
     #if process.returncode == 0:
-    #    print('compile ' + modelName + '.so sucess.')
+    #    print('compile ' + pydFileName + '.so sucess.')
     #else:
         #    print('something wrong')
