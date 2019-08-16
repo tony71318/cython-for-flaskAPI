@@ -7,7 +7,7 @@ parser.add_argument("targetFolderName", help="targetFolderName")
 args = parser.parse_args()
 
 pydFileName = args.pydFileName
-targetFolderName = args.targetFolderName
+targetFolderName = args.targetFolderName + '/'
 
 if platform.system() == 'Windows':
     with open(pydFileName + '.py', 'w') as f:

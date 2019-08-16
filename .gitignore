@@ -7,3 +7,4 @@ depends.exe
 /.vscode
 test.py
 python37.dll
+/__pycache__
