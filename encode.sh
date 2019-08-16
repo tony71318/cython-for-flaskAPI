@@ -21,8 +21,10 @@ timestamp=$(date +%Y%m%d%H%M%S)
 
 if [[ $platform = "1" ]]; then #.pyd
     platform="pyd"
+    pyversion="python"
 elif [[ $platform = "2" ]]; then #.so
     platform="so"
+    pyversion="python3"
 fi
 
 if [[ $mode = "1" ]]; then #single file
@@ -34,12 +36,12 @@ if [[ $mode = "1" ]]; then #single file
     if [[ $fileType = "1" ]]; then #.py
         cp $filePath .
     elif [[ $fileType = "2" ]]; then #.pkl
-        python encode_pkl.py $filePath $fileName
+        $pyversion encode_pkl.py $filePath $fileName
     elif [[ $fileType = "3" ]]; then #.h5
-        python encode_h5.py $filePath $fileName
+        $pyversion encode_h5.py $filePath $fileName
     fi
 
-    python setup.py $fileName build_ext --inplace
+    $pyversion setup.py $fileName build_ext --inplace
     rm "$fileName".py
     rm "$fileName".c
     mv "$fileName".*."$platform" "$fileName"."$platform"
@@ -58,12 +60,12 @@ elif [[ $mode = "2" ]]; then #whole folder
         if [[ $fileType = "1" && $extension = "py" ]]; then
             cp $filePath .
         elif [[ $fileType = "2" && $extension = "pkl" ]]; then
-            python encode_pkl.py $filePath $fileName
+            $pyversion encode_pkl.py $filePath $fileName
         elif [[ $fileType = "3" && $extension = "h5" ]]; then #.h5
-            python encode_h5.py $filePath $fileName
+            $pyversion encode_h5.py $filePath $fileName
         fi
 
-        python setup.py $fileName build_ext --inplace
+        $pyversion setup.py $fileName build_ext --inplace
         rm "$fileName".py
         rm "$fileName".c
         mv "$fileName".*."$platform" "$fileName"."$platform"
