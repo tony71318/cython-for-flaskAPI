@@ -8,3 +8,4 @@ depends.exe
 test.py
 python37.dll
 /__pycache__
+/output*
